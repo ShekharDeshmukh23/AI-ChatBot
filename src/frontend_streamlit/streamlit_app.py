@@ -112,7 +112,6 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-
 # ===================== Sidebar =====================
 with st.sidebar:
     st.subheader("🧭 Navigation")
