@@ -1,0 +1,21 @@
+# PATCH INSTRUCTIONS
+
+To enable CORS + health endpoint in FastAPI (`src/app.py`):
+
+1. At the top of `src/app.py`, add:
+   from fastapi.middleware.cors import CORSMiddleware
+
+2. After `app = FastAPI(...)`, add:
+   app.add_middleware(
+       CORSMiddleware,
+       allow_origins=["*"],
+       allow_credentials=True,
+       allow_methods=["*"],
+       allow_headers=["*"],
+   )
+
+3. At the bottom of `src/app.py`, add:
+   @app.get("/health")
+   def health():
+       return {"ok": True}
+
