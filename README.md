@@ -20,6 +20,19 @@ The bot takes on witty personalities (like *Tony Stark*) and reveals a hidden **
   - Secret hint toggle  
   - Session stats  
 
+Architecture Diagram:
+
+User (Browser)
+      ⬇
+  Streamlit UI (frontend_streamlit/)
+      ⬇ API calls (POST /chat)
+  FastAPI Backend (app.py)
+      ⬇
+  LangChain + Gemini LLM
+      ⬇
+  Secret Policy Engine (policy.py)
+
+
 ---
 
 ## ⚙️ Setup & Installation
@@ -79,6 +92,9 @@ Frontend runs on **http://localhost:8501**
 ### Main Chat UI
 *(Retro cyber theme with neon chat bubbles)*  
 ![UI Screenshot](src/assets/image.png)  
+
+## 🎥 Demonstration Video
+▶️ [Watch Demo Video](src/assets/demo.mp4)
 
 ---
 
