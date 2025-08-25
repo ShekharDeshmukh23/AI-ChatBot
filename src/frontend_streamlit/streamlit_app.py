@@ -2,11 +2,9 @@ import streamlit as st
 import requests
 import base64
 
-# ===================== Backend API =====================
 API_URL = "http://127.0.0.1:8000/chat"
 st.set_page_config(page_title="Secret Revelation 🤖", layout="wide")
 
-# ===================== Session State =====================
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "chat_history" not in st.session_state:
@@ -14,7 +12,6 @@ if "chat_history" not in st.session_state:
 if "bot_personality" not in st.session_state:
     st.session_state.bot_personality = "Mysterious Guide"
 
-# ===================== Encode Background Image =====================
 def get_base64(bin_file):
     with open(bin_file, "rb") as f:
         return base64.b64encode(f.read()).decode()
@@ -23,7 +20,6 @@ bg_file = "src/assets/cyber_bg2.jpg"
 bg_ext = "jpg"
 bg_base64 = get_base64(bg_file)
 
-# ===================== CSS Cyber Theme =====================
 st.markdown(f"""
 <style>
 [data-testid="stAppViewContainer"] {{
@@ -98,9 +94,7 @@ body {{
 </style>
 """, unsafe_allow_html=True)
 
-# ===================== Title =====================
-ironman_icon = "src/assets/ironman.png"  # path to your Iron Man mask icon
-
+ironman_icon = "src/assets/ironman.png" 
 st.markdown(f"""
 <div class='title-banner'>
     <img src="data:image/png;base64,{get_base64(ironman_icon)}" 
@@ -112,7 +106,6 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-# ===================== Sidebar =====================
 with st.sidebar:
     st.subheader("🧭 Navigation")
     if st.button("➕ New Chat"):
@@ -140,7 +133,6 @@ with st.sidebar:
     st.write("📊 **Session Stats**")
     st.write(f"Messages exchanged: {len(st.session_state.messages)}")
 
-# ===================== Chat Display =====================
 chat_html = "<div class='chat-container' id='chat-box'>"
 for sender, msg in st.session_state.messages:
     if sender == "You":
@@ -152,13 +144,11 @@ chat_html += "<div id='end'></div></div>"
 chat_placeholder = st.empty()
 chat_placeholder.markdown(chat_html, unsafe_allow_html=True)
 
-# ===================== Input + API =====================
 user_input = st.chat_input(">> Type your command...")
 
 if user_input:
     st.session_state.messages.append(("You", user_input))
 
-    # Re-render with user message
     chat_html = "<div class='chat-container' id='chat-box'>"
     for sender, msg in st.session_state.messages:
         chat_html += (
@@ -181,7 +171,6 @@ if user_input:
 
     st.session_state.messages.append(("Bot", bot_reply))
 
-    # Re-render with bot reply
     chat_html = "<div class='chat-container' id='chat-box'>"
     for sender, msg in st.session_state.messages:
         chat_html += (
@@ -192,7 +181,6 @@ if user_input:
     chat_html += "<div id='end'></div></div>"
     chat_placeholder.markdown(chat_html, unsafe_allow_html=True)
 
-    # Auto-scroll inside chat container
     st.components.v1.html("""
         <script>
             var chatBox = document.getElementById('chat-box');
